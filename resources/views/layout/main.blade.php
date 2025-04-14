@@ -11,14 +11,17 @@
 
     <title>Rapor Kesehatan Digital</title>
 
-<!-- Custom fonts for this template-->
-<link href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+    <!-- Custom fonts for this template-->
+    <link href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
+        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+        
 
     <!-- Custom styles for this template-->
-    <link href="{{ asset('assets/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 
 </head>
 
@@ -28,21 +31,25 @@
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-     
+
         <!-- Sidebar -->
         @include('layout.sidebar')
         <!-- End of Sidebar -->
 
-
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
-            <!-- Main Content -->
-           @include('layout.content')
-            <!-- End of Main Content -->
+            <div id="content">
+
+                @include('layout.topbar')
+                <!-- Main Content -->
+                {{-- @include('layout.content') --}}
+                @yield('content')
+                <!-- End of Main Content -->
+            </div>
 
             <!-- Footer -->
-          @include('layout.footer')
+            @include('layout.footer')
             <!-- End of Footer -->
 
         </div>
@@ -76,7 +83,7 @@
         </div>
     </div>
 
-<!-- Bootstrap core JavaScript-->
-@include('layout.js')
+    <!-- Bootstrap core JavaScript-->
+    @include('layout.js')
 
 </html>
