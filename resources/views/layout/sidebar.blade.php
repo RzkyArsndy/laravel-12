@@ -28,28 +28,36 @@
 
     <!-- Nav Item - Petugas Umum -->
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-            <i class="fas fa-hospital-alt" style="font-size:20px"></i>
+        <a class="nav-link" href="{{ route('pu.index') }}">
+            <i class="fas fa-user-md" style="font-size:20px"></i>
             <span>Pemeriksaan Umum</span></a>
     </li>
 
     <!-- Nav Item - Petugas Gizi -->
     <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-            <i class="fas fa-hamburger" style="font-size:20px;"></i>
+        <a class="nav-link" href="{{ route('pg.index') }}">
+            <i class="fas fa-utensils" style="font-size:20px;"></i>
             <span>Petugas Gizi</span></a>
     </li>
 
     <!-- Nav Item - Petugas Gigi dan Mulut -->
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="{{ route('pm.index') }}">
+            <i class="fas fa-eye" style="font-size: 20px"></i>
+            <span>Petugas Mata</span></a>
+    </li>
+
+
+    <!-- Nav Item - Petugas Gigi dan Mulut -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('pgm.index') }}">
             <i class="fas fa-tooth" style="font-size: 20px"></i>
             <span>Petugas Gigi Dan Mulut</span></a>
     </li>
 
     <!-- Nav Item - Identitas Diri -->
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="{{ route('id.index') }}">
             <i class="fas fa-user-friends" style="font-size: 20px"></i>
             <span>Identitas Diri</span></a>
     </li>
@@ -58,15 +66,15 @@
 
     <!-- Nav Item - Data Kuisioner -->
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="{{ route('dk.index') }}">
             <i class="fas fa-tasks" style="font-size: 20px"></i>
             <span>Data Kuesioner</span></a>
     </li>
-     <!-- Divider -->
-     <hr class="sidebar-divider">
+    <!-- Divider -->
+    <hr class="sidebar-divider">
     <!-- Nav Item - About -->
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="{{ route('ab.index') }}">
             <i class="fas fa-info-circle" style="font-size: 20px"></i>
             <span>About</span></a>
     </li>
@@ -74,7 +82,7 @@
 
     <!-- Nav Item - App gallery -->
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="{{ route('app.index') }}">
             <i class="fas fa-fw fa-table" style="font-size: 20px"></i>
             <span>App Gallery</span></a>
     </li>
