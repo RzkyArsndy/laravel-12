@@ -3,15 +3,18 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PemeriksaanUmumController;
+use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\SekolahController;
 
 
 
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/pu', function () {
+    Route::get('/pemeriksaanumum', function () {
         return view('pemeriksaanumum.index');
-    })->name('pu.index');
+    })->name('pemeriksaanumum.index');
 
     Route::get('/pg', function () {
         return view('petugasgizi.index');
@@ -39,12 +42,16 @@ Route::middleware('auth')->group(function () {
         return view('appgallery.index');
     })->name('app.index');
 
+    Route::get('/datasiswa', function () {
+        return view('datasiswa.index');
+    })->name('datasiswa.index');
+
     Route::middleware('auth')->group(function () {
         // Your existing routes...
 
         // New direct route to products.index view
         Route::get('/products-view', function () {
-           // Fetch products to avoid undefined variable
+            // Fetch products to avoid undefined variable
             return view('products.index');
         })->name('products.view');
 
@@ -58,7 +65,17 @@ Route::middleware('auth')->group(function () {
 
 
 
+    Route::get('/siswa/{id}/edit', [SiswaController::class, 'edit'])->name('siswa.edit');
+    Route::put('/siswa/{id}', [SiswaController::class, 'update'])->name('siswa.update');
 
+
+    Route::get('/datasiswa', [SiswaController::class, 'index'])->name('datasiswa.index');
+    Route::match(['get', 'post'], '/siswa', [SiswaController::class, 'index'])->name('siswa.index');
+    Route::get('/pemeriksaanumum', [PemeriksaanUmumController::class, 'index'])->name('pemeriksaanumum.index');
+    Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
+    Route::post('/siswa', [SiswaController::class, 'store'])->name('siswa.store');
+    Route::get('/id', [App\Http\Controllers\SekolahController::class, 'index'])->name('id.index');
+    Route::post('/pemeriksaan-umum', [PemeriksaanUmumController::class, 'store'])->name('pemeriksaan-umum.store');
     Route::resource('/products', ProductController::class);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -66,4 +83,4 @@ Route::middleware('auth')->group(function () {
 });
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -22,80 +22,88 @@
                     <div class="container-fluid py-4">
                         <div class="row justify-content-center">
                             <div class="col-md-8">
-                                <form>
+                                <form method="POST" action="{{ route('pemeriksaan-umum.store') }}">
+                                    @csrf
                                     <!-- Nama Lengkap -->
                                     <div class="mb-4">
                                         <label for="namaLengkap" class="form-label">Nama Lengkap<span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="namaLengkap" required>
+                                        <input type="text" class="form-control" id="namaLengkap" name="nama_lengkap"
+                                            required>
                                     </div>
 
-                                    <!-- Nama Sekolah -->
+                                    <!-- Pilih Sekolah -->
                                     <div class="mb-4">
-                                        <label for="namaSekolah" class="form-label">Nama Sekolah</label>
-                                        <select class="form-select" id="namaSekolah">
-                                            <option selected></option>
-                                            <option value="1">Sekolah Racing abis</option>
-                                            <option value="2">Sekolah Tura Turu FC</option>
-                                            <option value="3">Sekolah Berangkat jam 7 pulang jam 8</option>
+                                        <label for="sekolah">Pilih Sekolah</label>
+                                        <select name="sekolah_id" id="sekolah" class="form-control">
+                                            <option value="">-- Pilih Sekolah --</option>
+                                            @foreach ($sekolah as $item)
+                                                <option value="{{ $item->id }}">{{ $item->nama_sekolah }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
+
 
                                     <!-- Nama Kelas -->
                                     <div class="mb-4">
                                         <label for="kelas" class="form-label">Kelas<span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="kelas" required>
+                                        <input type="text" class="form-control" id="kelas" name="kelas" required>
                                     </div>
 
                                     <!-- Tekanan Darah-->
                                     <div class="mb-4">
                                         <label for="tekananDarah" class="form-label">Tekanan Darah<span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="tekananDarah" required>
+                                        <input type="text" class="form-control" id="tekananDarah" name="tekanan_darah"
+                                            required>
                                     </div>
 
                                     <!-- Denyut Nadi -->
                                     <div class="mb-4">
                                         <label for="denyutNadi" class="form-label">Denyut Nadi<span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="denyutNadi" required>
+                                        <input type="text" class="form-control" id="denyutNadi" name="denyut_nadi"
+                                            required>
                                     </div>
 
                                     <!-- Frekuensi Pernapasan -->
                                     <div class="mb-4">
                                         <label for="frekuensiPernapasan" class="form-label">Frekuensi Pernapasan<span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="frekuensiPernapasan" required>
+                                        <input type="text" class="form-control" id="frekuensiPernapasan"
+                                            name="frekuensi_pernapasan" required>
                                     </div>
 
                                     <!-- Suhu -->
                                     <div class="mb-4">
                                         <label for="suhu" class="form-label">Suhu<span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="suhu" required>
+                                        <input type="text" class="form-control" id="suhu" name="suhu" required>
                                     </div>
-
 
                                     <!-- Bising Jantung -->
                                     <div class="mb-4">
                                         <label for="bisingJantung" class="form-label">Bising Jantung<span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="bisingJantung" required>
+                                        <input type="text" class="form-control" id="bisingJantung" name="bising_jantung"
+                                            required>
                                     </div>
 
                                     <!-- Bising Paru -->
                                     <div class="mb-4">
                                         <label for="bisingParu" class="form-label">Bising Paru<span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="bisingParu" required>
+                                        <input type="text" class="form-control" id="bisingParu" name="bising_paru"
+                                            required>
                                     </div>
 
                                     <!-- Bising Keadaan Rambut -->
                                     <div class="mb-4">
                                         <label for="keadaanRambut" class="form-label">Keadaan Rambut<span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="keadaanRambut" required>
+                                        <input type="text" class="form-control" id="keadaanRambut" name="keadaan_rambut"
+                                            required>
                                     </div>
 
                                     <!-- Kulit Bercak Keputihan,Kemerahan/kehitaman? -->
@@ -104,21 +112,25 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
-                                                    data-value="N" data-target="bercakKeputihan" value="N">N</button>
+                                                    data-value="N" data-target="bercakKeputihan"
+                                                    value="N">N</button>
                                             </div>
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
-                                                    data-value="Y" data-target="bercakKeputihan" value="Y">Y</button>
+                                                    data-value="Y" data-target="bercakKeputihan"
+                                                    value="Y">Y</button>
                                             </div>
-                                            <input type="hidden" id="bercakKeputihan" name="bercakKeputihan" value="" required>
+                                            <input type="hidden" id="bercakKeputihan" name="bercak_keputihan"
+                                                value="" required>
                                         </div>
                                     </div>
 
                                     <!-- Jika Ya, Apakah bercak Putih Mati Rasa? -->
                                     <div class="mb-4">
-                                        <label for="bercakPutihMatiRasa" class="form-label">Jika Ya, Apakah bercak Putih Mati
-                                            Rasa?<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="bercakPutihMatiRasa" required>
+                                        <label for="bercakPutihMatiRasa" class="form-label">Jika Ya, Apakah bercak Putih
+                                            Mati Rasa?</label>
+                                        <input type="text" class="form-control" id="bercakPutihMatiRasa"
+                                            name="bercak_putih_mati_rasa">
                                     </div>
 
                                     <!-- Kulit Bersisik? -->
@@ -133,13 +145,14 @@
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
                                                     data-value="Y" data-target="kulitBersisik" value="Y">Y</button>
                                             </div>
-                                            <input type="hidden" id="kulitBersisik" name="kulitBersisik" value="" required>
+                                            <input type="hidden" id="kulitBersisik" name="kulit_bersisik"
+                                                value="" required>
                                         </div>
                                     </div>
 
                                     <!-- Kulit Ada Memar? -->
                                     <div class="mb-4">
-                                        <label class="form-label">Kulit Ada Memar? </label>
+                                        <label class="form-label">Kulit Ada Memar?</label>
                                         <div class="row">
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
@@ -149,7 +162,8 @@
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
                                                     data-value="Y" data-target="kulitAdaMemar" value="Y">Y</button>
                                             </div>
-                                            <input type="hidden" id="kulitAdaMemar" name="kulitAdaMemar" value="" required>
+                                            <input type="hidden" id="kulitAdaMemar" name="kulit_ada_memar"
+                                                value="" required>
                                         </div>
                                     </div>
 
@@ -159,51 +173,60 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
-                                                    data-value="N" data-target="kulitAdaLukaSayatan" value="N">N</button>
+                                                    data-value="N" data-target="kulitAdaLukaSayatan"
+                                                    value="N">N</button>
                                             </div>
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
-                                                    data-value="Y" data-target="kulitAdaLukaSayatan" value="Y">Y</button>
+                                                    data-value="Y" data-target="kulitAdaLukaSayatan"
+                                                    value="Y">Y</button>
                                             </div>
-                                            <input type="hidden" id="kulitAdaLukaSayatan" name="kulitAdaLukaSayatan" value="" required>
+                                            <input type="hidden" id="kulitAdaLukaSayatan" name="kulit_ada_luka_sayatan"
+                                                value="" required>
                                         </div>
                                     </div>
 
                                     <!-- Kulit Ada Luka koreng -->
                                     <div class="mb-4">
-                                        <label class="form-label">Kulit Ada Luka Koreng </label>
+                                        <label class="form-label">Kulit Ada Luka Koreng</label>
                                         <div class="row">
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
-                                                    data-value="N" data-target="kulitAdaLukaKoreng" value="N">N</button>
+                                                    data-value="N" data-target="kulitAdaLukaKoreng"
+                                                    value="N">N</button>
                                             </div>
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
-                                                    data-value="Y" data-target="kulitAdaLukaKoreng" value="Y">Y</button>
+                                                    data-value="Y" data-target="kulitAdaLukaKoreng"
+                                                    value="Y">Y</button>
                                             </div>
-                                            <input type="hidden" id="kulitAdaLukaKoreng" name="kulitAdaLukaKoreng" value="" required>
+                                            <input type="hidden" id="kulitAdaLukaKoreng" name="kulit_ada_luka_koreng"
+                                                value="" required>
                                         </div>
                                     </div>
 
                                     <!-- Kulit Ada Luka Koreng sukar Sembuh-->
                                     <div class="mb-4">
-                                        <label class="form-label">Kulit Ada Luka Koreng Sukar Sembuh </label>
+                                        <label class="form-label">Kulit Ada Luka Koreng Sukar Sembuh</label>
                                         <div class="row">
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
-                                                    data-value="N" data-target="lukaKorengSukarSembuh" value="N">N</button>
+                                                    data-value="N" data-target="lukaKorengSukarSembuh"
+                                                    value="N">N</button>
                                             </div>
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
-                                                    data-value="Y" data-target="lukaKorengSukarSembuh" value="Y">Y</button>
+                                                    data-value="Y" data-target="lukaKorengSukarSembuh"
+                                                    value="Y">Y</button>
                                             </div>
-                                            <input type="hidden" id="lukaKorengSukarSembuh" name="lukaKorengSukarSembuh" value="" required>
+                                            <input type="hidden" id="lukaKorengSukarSembuh"
+                                                name="luka_koreng_sukar_sembuh" value="" required>
                                         </div>
                                     </div>
 
                                     <!-- Kulit Ada Bekas Suntikan-->
                                     <div class="mb-4">
-                                        <label class="form-label">Kulit Ada Bekas Suntikan </label>
+                                        <label class="form-label">Kulit Ada Bekas Suntikan</label>
                                         <div class="row">
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
@@ -213,7 +236,8 @@
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
                                                     data-value="Y" data-target="bekasSuntikan" value="Y">Y</button>
                                             </div>
-                                            <input type="hidden" id="bekasSuntikan" name="bekasSuntikan" value="" required>
+                                            <input type="hidden" id="bekasSuntikan" name="bekas_suntikan"
+                                                value="" required>
                                         </div>
                                     </div>
 
@@ -221,28 +245,32 @@
                                     <div class="mb-4">
                                         <label for="resikoMerokok" class="form-label">Resiko Merokok<span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="resikoMerokok" required>
+                                        <input type="text" class="form-control" id="resikoMerokok"
+                                            name="resiko_merokok" required>
                                     </div>
 
                                     <!-- Apakah Telinga Luar Sehat,Infeksi,Serumen -->
                                     <div class="mb-4">
                                         <label for="telingaLuar" class="form-label">Apakah Telinga Luar
                                             Sehat,Infeksi,Serumen<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="telingaLuar" required>
+                                        <input type="text" class="form-control" id="telingaLuar" name="telinga_luar"
+                                            required>
                                     </div>
 
                                     <!-- sarapan -->
                                     <div class="mb-4">
                                         <label for="sarapan" class="form-label">Sarapan<span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="sarapan" required>
+                                        <input type="text" class="form-control" id="sarapan" name="sarapan"
+                                            required>
                                     </div>
 
                                     <!-- Kondisi Kuku -->
                                     <div class="mb-4">
                                         <label for="kondisiKuku" class="form-label">Kondisi Kuku<span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="kondisiKuku" required>
+                                        <input type="text" class="form-control" id="kondisiKuku" name="kondisi_kuku"
+                                            required>
                                     </div>
 
                                     <!-- Apakah Siswa Dirujuk Ke Fasyankes-->
@@ -251,22 +279,28 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
-                                                    data-value="N" data-target="dirujukKeFasyankes" value="N">N</button>
+                                                    data-value="N" data-target="dirujukKeFasyankes"
+                                                    value="N">N</button>
                                             </div>
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
-                                                    data-value="Y" data-target="dirujukKeFasyankes" value="Y">Y</button>
+                                                    data-value="Y" data-target="dirujukKeFasyankes"
+                                                    value="Y">Y</button>
                                             </div>
-                                            <input type="hidden" id="dirujukKeFasyankes" name="dirujukKeFasyankes" value="" required>
+                                            <input type="hidden" id="dirujukKeFasyankes" name="dirujuk_ke_fasyankes"
+                                                value="" required>
                                         </div>
                                     </div>
 
                                     <!-- jika iya tuliskan keterangan rujukan untuk fasyankes -->
                                     <div class="mb-4">
-                                        <label for="keteranganRujukan" class="form-label">Jika Iya Tuliskan Keterangan Rujukan
-                                            Untuk Fasyankes<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="keteranganRujukan" required>
+                                        <label for="keteranganRujukan" class="form-label">Jika Iya Tuliskan Keterangan
+                                            Rujukan Untuk Fasyankes</label>
+                                        <input type="text" class="form-control" id="keteranganRujukan"
+                                            name="keterangan_rujukan">
                                     </div>
+
+                                    <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>
                             </div>
                         </div>

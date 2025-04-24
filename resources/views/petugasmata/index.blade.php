@@ -1,7 +1,6 @@
 @extends('layout.main')
 
-@section('content')
-    @extends('layout.main')
+
 
 @section('content')
     <!DOCTYPE html>
@@ -166,4 +165,4 @@
     </html>
 @endsection
 
-@endsection
+

@@ -28,7 +28,7 @@
 
     <!-- Nav Item - Petugas Umum -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('pu.index') }}">
+        <a class="nav-link" href="{{ route('pemeriksaanumum.index') }}">
             <i class="fas fa-user-md" style="font-size:20px"></i>
             <span>Pemeriksaan Umum</span></a>
     </li>
@@ -61,6 +61,14 @@
             <i class="fas fa-user-friends" style="font-size: 20px"></i>
             <span>Identitas Diri</span></a>
     </li>
+
+      <!-- Nav Item - Data Siswa -->
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('datasiswa.index') }}">
+            <i class="fas fa-users" style="font-size: 20px"></i>
+            <span>Data Siswa</span></a>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider">
 
