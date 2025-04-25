@@ -1,7 +1,6 @@
 @extends('layout.main')
 
 @section('content')
-
     <!DOCTYPE html>
     <html lang="en">
 
@@ -11,6 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
 
     <body>
@@ -23,108 +23,146 @@
                     <div class="container-fluid py-4">
                         <div class="row justify-content-center">
                             <div class="col-md-8">
-                                <form>
+                                @if (session('success'))
+                                    <script>
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Berhasil!',
+                                            text: '{{ session('success') }}',
+                                            confirmButtonColor: '#3085d6',
+                                        });
+                                    </script>
+                                @endif
 
-                                    <!-- Timestamp -->
-                                    <div class="mb-4">
-                                        <label for="timestamp" class="form-label">Timestamp</label>
-                                        <input type="datetime-local" class="form-control" id="timestamp" name="timestamp">
-                                    </div>
+                                @if (session('error'))
+                                    <script>
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Oops...',
+                                            text: '{{ session('error') }}',
+                                            confirmButtonColor: '#d33',
+                                        });
+                                    </script>
+                                @endif
+                                <form method="POST" action="{{ route('gizi.store') }}">
+                                    @csrf
+                                    <form>
 
-                                    <!-- Nama Lengkap -->
-                                    <div class="mb-4">
-                                        <label for="namaLengkap" class="form-label">Nama Lengkap<span
-                                                class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="namaLengkap" required>
-                                    </div>
+                                        <!-- Timestamp -->
+                                        <div class="mb-4">
+                                            <label for="timestamp" class="form-label">Timestamp</label>
+                                            <input type="datetime-local" class="form-control" id="timestamp"
+                                                name="timestamp">
+                                        </div>
 
-                                    <!-- Nama Sekolah -->
-                                    <div class="mb-4">
-                                        <label for="namaSekolah" class="form-label">Nama Sekolah</label>
-                                        <select class="form-select" id="namaSekolah">
-                                            <option selected></option>
-                                            <option value="1">Sekolah Racing abis</option>
-                                            <option value="2">Sekolah Tura Turu FC</option>
-                                            <option value="3">Sekolah Berangkat jam 7 pulang jam 8</option>
-                                        </select>
-                                    </div>
-
-                                    <!-- Nama Kelas -->
-                                    <div class="mb-4">
-                                        <label for="NamaKelas" class="form-label">Kelas<span
-                                                class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="NamaKelas" required>
-                                    </div>
-
-                                     <!-- Berat Badan-->
-                                     <div class="mb-4">
-                                        <label for="BeratBadan" class="form-label">Berat Badan<span
-                                                class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="BeratBadan" required>
-                                    </div>
-
-                                    <!-- Tinggi Badan -->
-                                    <div class="mb-4">
-                                        <label for="Tinggi Badan" class="form-label">Tinggi Badan<span
-                                                class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="TinggiBadan" required>
-                                    </div>
-
-                                    <!-- indeks massa tubuh -->
-                                    <div class="mb-4">
-                                        <label for="IMT" class="form-label">IMT (BB/TB)<span
-                                                class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="IMT" required>
-                                    </div>
-
-                                    <!-- DESKRIPSI IMT MURID -->
-                                    <div class="mb-4">
-                                        <label for="deskripsiIMTmurid" class="form-label">Deskripsi Yang Paling Sesuai
-                                            Dengan IMT Murid<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="deskripsiIMTmurid" required>
-                                    </div>
-
-                                    <!-- TB/U (stunting) -->
-                                    <div class="mb-4">
-                                        <label for="TB/U" class="form-label">TB/U (Stunting)<span
-                                                class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="TB/U" required>
-                                    </div>
-
-
-                                    <!-- Tanda Klinis Anemia -->
-                                    <div class="mb-4">
-                                        <label for="TandaAnemia" class="form-label">Tanda Klinis Anemia<span
-                                                class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="tandaAnemia" required>
-                                    </div>
-
-
-
-
-                                    <!-- Apakah Siswa Dirujuk Ke Fasyankes? -->
-                                    <div class="mb-4">
-                                        <label class="form-label">Apakah Siswa Dirujuk Ke Fasyankes?</label>
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <button type="button" class="btn btn-outline-secondary w-100 py-2"
-                                                    data-value="N" data-target="DirujukGizi" value="N">N</button>
-                                            </div>
-                                            <div class="col-6">
-                                                <button type="button" class="btn btn-outline-secondary w-100 py-2"
-                                                    data-value="Y" data-target="DirujukGizi" value="Y">Y</button>
-                                            </div>
-                                            <input type="hidden" id="DirujukGizi" name="DirujukGizi" value=""
+                                        <!-- Nama Lengkap -->
+                                        <div class="mb-4">
+                                            <label for="namaLengkap" class="form-label">Nama Lengkap<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="namaLengkap" name="namaLengkap"
                                                 required>
                                         </div>
-                                    </div>
 
-                                    <!-- Jika Iya Tuliskan Keterangan Rujukan Untuk Fasyankes -->
-                                    <div class="mb-4">
-                                        <label for="RujukanGizi" class="form-label"> Jika Iya Tuliskan Keterangan Rujukan Untuk Fasyankes
-                                            <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="RujukanGizi" required>
-                                    </div>
+                                        <!-- Nama Sekolah -->
+                                        <div class="mb-4">
+                                            <label for="namaSekolah" class="form-label">Nama Sekolah</label>
+                                            <select class="form-select" id="namaSekolah" name="namaSekolah">
+                                                <option selected></option>
+                                                <option value="Sekolah Racing abis">Sekolah Racing abis</option>
+                                                <option value="Sekolah Tura Turu FC">Sekolah Tura Turu FC</option>
+                                                <option value="Sekolah Berangkat jam 7 pulang jam 8">Sekolah Berangkat jam 7
+                                                    pulang jam 8</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Nama Kelas -->
+                                        <div class="mb-4">
+                                            <label for="NamaKelas" class="form-label">Kelas<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="NamaKelas" name="NamaKelas"
+                                                required>
+                                        </div>
+
+                                        <!-- Berat Badan -->
+                                        <div class="mb-4">
+                                            <label for="BeratBadan" class="form-label">Berat Badan<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="BeratBadan" name="BeratBadan"
+                                                required>
+                                        </div>
+
+                                        <!-- Tinggi Badan -->
+                                        <div class="mb-4">
+                                            <label for="TinggiBadan" class="form-label">Tinggi Badan<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="TinggiBadan" name="TinggiBadan"
+                                                required>
+                                        </div>
+
+                                        <!-- IMT -->
+                                        <div class="mb-4">
+                                            <label for="IMT" class="form-label">IMT<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="IMT" name="IMT"
+                                                required>
+                                        </div>
+
+                                        <!-- Deskripsi IMT -->
+                                        <div class="mb-4">
+                                            <label for="deskripsiIMTmurid" class="form-label">Deskripsi IMT<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="deskripsiIMTmurid"
+                                                name="deskripsiIMTmurid" required>
+                                        </div>
+
+                                        <!-- TB/U -->
+                                        <div class="mb-4">
+                                            <label for="TB/U" class="form-label">TB/U<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="TB/U" name="TBU"
+                                                required>
+                                        </div>
+
+                                        <!-- Tanda Anemia -->
+                                        <div class="mb-4">
+                                            <label for="tandaAnemia" class="form-label">Tanda Klinis Anemia<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="tandaAnemia" name="tandaAnemia"
+                                                required>
+                                        </div>
+
+
+
+                                        <!--Dirujuk Fasyankes -->
+                                        <div class="mb-4">
+                                            <label class="form-label">Apakah Siswa dirujuk ke Fasyankes?</label>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <button type="button" class="btn btn-outline-secondary w-100 py-2"
+                                                        data-value="N" data-target="DirujukGizi">N</button>
+                                                </div>
+                                                <div class="col-6">
+                                                    <button type="button" class="btn btn-outline-secondary w-100 py-2"
+                                                        data-value="Y" data-target="DirujukGizi">Y</button>
+                                                </div>
+                                                <input type="hidden" id="DirujukGizi" name="DirujukGizi" value=""
+                                                    required>
+                                            </div>
+                                        </div>
+
+                                        <!-- Keterangan Rujukan -->
+                                        <div class="mb-4">
+                                            <label for="RujukanGizi" class="form-label">Keterangan Rujukan<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="RujukanGizi"
+                                                name="RujukanGizi" required>
+                                        </div>
+
+                                        <!-- Tombol Submit -->
+                                        <div class="mb-4">
+                                            <button type="submit" class="btn btn-primary">Simpan</button>
+                                        </div>
+                                    </form>
 
 
                                 </form>

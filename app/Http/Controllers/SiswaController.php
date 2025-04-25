@@ -20,7 +20,7 @@ class SiswaController extends Controller
     {
         $validated = $request->validate([
             'nama_lengkap' => 'required|string|max:255',
-            'nisn' => 'required|string|max:20|unique:siswa,nisn', // Unique constraint here
+            'nisn' => 'required|string|max:20|unique:siswa,nisn',
             'tanggal_lahir' => 'nullable|date',
             'sekolah_id' => 'required|exists:sekolah,id',
             'tempat_lahir' => 'required|string|max:100',
@@ -52,7 +52,7 @@ class SiswaController extends Controller
     {
         $validated = $request->validate([
             'nama_lengkap' => 'required|string|max:255',
-            'nisn' => 'required|string|max:20|unique:siswa,nisn', // Unique constraint here
+            'nisn' => 'required|string|max:20|unique:siswa,nisn',
             'tanggal_lahir' => 'nullable|date',
             'sekolah_id' => 'required|exists:sekolah,id',
             'tempat_lahir' => 'required|string|max:100',

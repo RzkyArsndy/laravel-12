@@ -5,50 +5,68 @@
     <html lang="en">
 
     <head>
-        <title>Bootstrap Example</title>
+        <title>Form Pemeriksaan Gigi</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
-
     <body>
-
         <div class="container mt-3">
             <h2>Petugas Gigi Dan Mulut</h2>
             <div class="card">
                 <div class="card-header">Puskesmas Samarinda</div>
-                <div class="card-body"><!-- Content Section - Ini hanya bagian konten form saja -->
+                <div class="card-body">
                     <div class="container-fluid py-4">
                         <div class="row justify-content-center">
                             <div class="col-md-8">
-                                <form>
+                                @if(session('success'))
+                                <script>
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Berhasil!',
+                                        text: '{{ session('success') }}',
+                                        confirmButtonColor: '#3085d6',
+                                    });
+                                </script>
+                                @endif
+
+                                @if(session('error'))
+                                <script>
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: '{{ session('error') }}',
+                                        confirmButtonColor: '#d33',
+                                    });
+                                </script>
+                                @endif
+
+                                <form action="{{ route('pemeriksaan-gigi.store') }}" method="POST">
+                                    @csrf
 
                                     <!-- Nama Lengkap -->
                                     <div class="mb-4">
-                                        <label for="namaLengkap" class="form-label">Nama Lengkap<span
-                                                class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="namaLengkap" required>
+                                        <label for="nama_lengkap" class="form-label">Nama Lengkap<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" required>
                                     </div>
-
-
 
                                     <!-- Nama Sekolah -->
                                     <div class="mb-4">
-                                        <label for="namaSekolah" class="form-label">Nama Sekolah</label>
-                                        <select class="form-select" id="namaSekolah">
-                                            <option selected></option>
-                                            <option value="1">Sekolah Racing abis</option>
-                                            <option value="2">Sekolah Tura Turu FC</option>
-                                            <option value="3">Sekolah Berangkat jam 7 pulang jam 8</option>
+                                        <label for="nama_sekolah" class="form-label">Nama Sekolah</label>
+                                        <select class="form-select" id="nama_sekolah" name="nama_sekolah">
+                                            <option value="" selected></option>
+                                            <option value="Sekolah Racing abis">Sekolah Racing abis</option>
+                                            <option value="Sekolah Tura Turu FC">Sekolah Tura Turu FC</option>
+                                            <option value="Sekolah Berangkat jam 7 pulang jam 8">Sekolah Berangkat jam 7 pulang jam 8</option>
                                         </select>
                                     </div>
 
                                     <!-- Nama Kelas -->
                                     <div class="mb-4">
-                                        <label for="NamaKelas" class="form-label">Kelas<span
-                                                class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="Kelas" required>
+                                        <label for="kelas" class="form-label">Kelas<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="kelas" name="kelas" required>
                                     </div>
 
                                     <!-- Celah Bibir / Langit - Langit -->
@@ -57,16 +75,15 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
-                                                    data-value="N" data-target="CelahBibir" value="N">N</button>
+                                                    data-value="N" data-target="celah_bibir">N</button>
                                             </div>
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
-                                                    data-value="Y" data-target="CelahBibir" value="Y">Y</button>
+                                                    data-value="Y" data-target="celah_bibir">Y</button>
                                             </div>
-                                            <input type="hidden" id="CelahBibir" name="CelahBibir" value="" required>
+                                            <input type="hidden" id="celah_bibir" name="celah_bibir" value="" required>
                                         </div>
                                     </div>
-
 
                                     <!-- Luka Pada Sudut Mulut? -->
                                     <div class="mb-4">
@@ -74,13 +91,13 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
-                                                    data-value="N" data-target="SudutMulut" value="N">N</button>
+                                                    data-value="N" data-target="sudut_mulut">N</button>
                                             </div>
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
-                                                    data-value="Y" data-target="SudutMulut" value="Y">Y</button>
+                                                    data-value="Y" data-target="sudut_mulut">Y</button>
                                             </div>
-                                            <input type="hidden" id="SudutMulut" name="SudutMulut" value="" required>
+                                            <input type="hidden" id="sudut_mulut" name="sudut_mulut" value="" required>
                                         </div>
                                     </div>
 
@@ -90,13 +107,13 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
-                                                    data-value="N" data-target="Sariawan">N</button>
+                                                    data-value="N" data-target="sariawan">N</button>
                                             </div>
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
-                                                    data-value="Y" data-target="Sariawan">Y</button>
+                                                    data-value="Y" data-target="sariawan">Y</button>
                                             </div>
-                                            <input type="hidden" id="Sariawan" name="Sariawan" value="" required>
+                                            <input type="hidden" id="sariawan" name="sariawan" value="" required>
                                         </div>
                                     </div>
 
@@ -106,14 +123,13 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
-                                                    data-value="N" data-target="LidahKotor">N</button>
+                                                    data-value="N" data-target="lidah_kotor">N</button>
                                             </div>
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
-                                                    data-value="Y" data-target="LidahKotor">Y</button>
+                                                    data-value="Y" data-target="lidah_kotor">Y</button>
                                             </div>
-                                            <input type="hidden" id="LidahKotor" name="LidahKotor" value=""
-                                                required>
+                                            <input type="hidden" id="lidah_kotor" name="lidah_kotor" value="" required>
                                         </div>
                                     </div>
 
@@ -123,14 +139,13 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
-                                                    data-value="N" data-target="LukaLainnya">N</button>
+                                                    data-value="N" data-target="luka_lainnya">N</button>
                                             </div>
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
-                                                    data-value="Y" data-target="LukaLainnya">Y</button>
+                                                    data-value="Y" data-target="luka_lainnya">Y</button>
                                             </div>
-                                            <input type="hidden" id="LukaLainnya" name="LukaLainnya" value=""
-                                                required>
+                                            <input type="hidden" id="luka_lainnya" name="luka_lainnya" value="" required>
                                         </div>
                                     </div>
 
@@ -140,209 +155,245 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
-                                                    data-value="N" data-target="GigiBerlubang">N</button>
+                                                    data-value="N" data-target="gigi_berlubang">N</button>
                                             </div>
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-outline-secondary w-100 py-2"
-                                                    data-value="Y" data-target="GigiBerlubang">Y</button>
+                                                    data-value="Y" data-target="gigi_berlubang">Y</button>
                                             </div>
-                                            <input type="hidden" id="GigiBerlubang" name="GigiBerlubang" value=""
-                                                required>
+                                            <input type="hidden" id="gigi_berlubang" name="gigi_berlubang" value="" required>
                                         </div>
                                     </div>
 
                                     <!-- Gusi Mudah Berdarah -->
-<div class="mb-4">
-    <label class="form-label">Gusi mudah berdarah?</label>
-    <div class="row">
-        <div class="col-6">
-            <button type="button" class="btn btn-outline-secondary w-100 py-2" data-value="N" data-target="GusiBerdarah">N</button>
-        </div>
-        <div class="col-6">
-            <button type="button" class="btn btn-outline-secondary w-100 py-2" data-value="Y" data-target="GusiBerdarah">Y</button>
-        </div>
-        <input type="hidden" id="GusiBerdarah" name="GusiBerdarah" value="" required>
-    </div>
-</div>
+                                    <div class="mb-4">
+                                        <label class="form-label">Gusi mudah berdarah?</label>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <button type="button" class="btn btn-outline-secondary w-100 py-2"
+                                                    data-value="N" data-target="gusi_berdarah">N</button>
+                                            </div>
+                                            <div class="col-6">
+                                                <button type="button" class="btn btn-outline-secondary w-100 py-2"
+                                                    data-value="Y" data-target="gusi_berdarah">Y</button>
+                                            </div>
+                                            <input type="hidden" id="gusi_berdarah" name="gusi_berdarah" value="" required>
+                                        </div>
+                                    </div>
 
-<!-- Gusi Bengkak -->
-<div class="mb-4">
-    <label class="form-label">Gusi bengkak?</label>
-    <div class="row">
-        <div class="col-6">
-            <button type="button" class="btn btn-outline-secondary w-100 py-2" data-value="N" data-target="GusiBengkak">N</button>
-        </div>
-        <div class="col-6">
-            <button type="button" class="btn btn-outline-secondary w-100 py-2" data-value="Y" data-target="GusiBengkak">Y</button>
-        </div>
-        <input type="hidden" id="GusiBengkak" name="GusiBengkak" value="" required>
-    </div>
-</div>
+                                    <!-- Gusi Bengkak -->
+                                    <div class="mb-4">
+                                        <label class="form-label">Gusi bengkak?</label>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <button type="button" class="btn btn-outline-secondary w-100 py-2"
+                                                    data-value="N" data-target="gusi_bengkak">N</button>
+                                            </div>
+                                            <div class="col-6">
+                                                <button type="button" class="btn btn-outline-secondary w-100 py-2"
+                                                    data-value="Y" data-target="gusi_bengkak">Y</button>
+                                            </div>
+                                            <input type="hidden" id="gusi_bengkak" name="gusi_bengkak" value="" required>
+                                        </div>
+                                    </div>
 
-<!-- Gigi Kotor -->
-<div class="mb-4">
-    <label class="form-label">Gigi kotor (ada plak & sisa makanan)?</label>
-    <div class="row">
-        <div class="col-6">
-            <button type="button" class="btn btn-outline-secondary w-100 py-2" data-value="N" data-target="GigiKotor">N</button>
-        </div>
-        <div class="col-6">
-            <button type="button" class="btn btn-outline-secondary w-100 py-2" data-value="Y" data-target="GigiKotor">Y</button>
-        </div>
-        <input type="hidden" id="GigiKotor" name="GigiKotor" value="" required>
-    </div>
-</div>
+                                    <!-- Gigi Kotor -->
+                                    <div class="mb-4">
+                                        <label class="form-label">Gigi kotor (ada plak & sisa makanan)?</label>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <button type="button" class="btn btn-outline-secondary w-100 py-2"
+                                                    data-value="N" data-target="gigi_kotor">N</button>
+                                            </div>
+                                            <div class="col-6">
+                                                <button type="button" class="btn btn-outline-secondary w-100 py-2"
+                                                    data-value="Y" data-target="gigi_kotor">Y</button>
+                                            </div>
+                                            <input type="hidden" id="gigi_kotor" name="gigi_kotor" value="" required>
+                                        </div>
+                                    </div>
 
-<!-- Karang Gigi -->
-<div class="mb-4">
-    <label class="form-label">Apakah ada karang gigi?</label>
-    <div class="row">
-        <div class="col-6">
-            <button type="button" class="btn btn-outline-secondary w-100 py-2" data-value="N" data-target="KarangGigi">N</button>
-        </div>
-        <div class="col-6">
-            <button type="button" class="btn btn-outline-secondary w-100 py-2" data-value="Y" data-target="KarangGigi">Y</button>
-        </div>
-        <input type="hidden" id="KarangGigi" name="KarangGigi" value="" required>
-    </div>
-</div>
+                                    <!-- Karang Gigi -->
+                                    <div class="mb-4">
+                                        <label class="form-label">Apakah ada karang gigi?</label>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <button type="button" class="btn btn-outline-secondary w-100 py-2"
+                                                    data-value="N" data-target="karang_gigi">N</button>
+                                            </div>
+                                            <div class="col-6">
+                                                <button type="button" class="btn btn-outline-secondary w-100 py-2"
+                                                    data-value="Y" data-target="karang_gigi">Y</button>
+                                            </div>
+                                            <input type="hidden" id="karang_gigi" name="karang_gigi" value="" required>
+                                        </div>
+                                    </div>
 
-<!-- Susunan Gigi -->
-<div class="mb-4">
-    <label class="form-label">Susunan gigi tidak teratur?</label>
-    <div class="row">
-        <div class="col-6">
-            <button type="button" class="btn btn-outline-secondary w-100 py-2" data-value="N" data-target="SusunanGigi">N</button>
-        </div>
-        <div class="col-6">
-            <button type="button" class="btn btn-outline-secondary w-100 py-2" data-value="Y" data-target="SusunanGigi">Y</button>
-        </div>
-        <input type="hidden" id="SusunanGigi" name="SusunanGigi" value="" required>
-    </div>
-</div>
+                                    <!-- Susunan Gigi -->
+                                    <div class="mb-4">
+                                        <label class="form-label">Susunan gigi tidak teratur?</label>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <button type="button" class="btn btn-outline-secondary w-100 py-2"
+                                                    data-value="N" data-target="susunan_gigi">N</button>
+                                            </div>
+                                            <div class="col-6">
+                                                <button type="button" class="btn btn-outline-secondary w-100 py-2"
+                                                    data-value="Y" data-target="susunan_gigi">Y</button>
+                                            </div>
+                                            <input type="hidden" id="susunan_gigi" name="susunan_gigi" value="" required>
+                                        </div>
+                                    </div>
 
-<!-- Penglihatan -->
-<div class="mb-4">
-    <label class="form-label">Penglihatan (Loupe)?</label>
-    <div class="row">
-        <div class="col-6">
-            <button type="button" class="btn btn-outline-secondary w-100 py-2" data-value="N" data-target="Penglihatan">N</button>
-        </div>
-        <div class="col-6">
-            <button type="button" class="btn btn-outline-secondary w-100 py-2" data-value="Y" data-target="Penglihatan">Y</button>
-        </div>
-        <input type="hidden" id="Penglihatan" name="Penglihatan" value="" required>
-    </div>
-</div>
+                                    <!-- Penglihatan -->
+                                    <div class="mb-4">
+                                        <label class="form-label">Penglihatan (Loupe)?</label>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <button type="button" class="btn btn-outline-secondary w-100 py-2"
+                                                    data-value="N" data-target="penglihatan">N</button>
+                                            </div>
+                                            <div class="col-6">
+                                                <button type="button" class="btn btn-outline-secondary w-100 py-2"
+                                                    data-value="Y" data-target="penglihatan">Y</button>
+                                            </div>
+                                            <input type="hidden" id="penglihatan" name="penglihatan" value="" required>
+                                        </div>
+                                    </div>
 
-<!-- Pendengaran -->
-<div class="mb-4">
-    <label class="form-label">Pendengaran?</label>
-    <div class="row">
-        <div class="col-6">
-            <button type="button" class="btn btn-outline-secondary w-100 py-2" data-value="N" data-target="Pendengaran">N</button>
-        </div>
-        <div class="col-6">
-            <button type="button" class="btn btn-outline-secondary w-100 py-2" data-value="Y" data-target="Pendengaran">Y</button>
-        </div>
-        <input type="hidden" id="Pendengaran" name="Pendengaran" value="" required>
-    </div>
-</div>
+                                    <!-- Pendengaran -->
+                                    <div class="mb-4">
+                                        <label class="form-label">Pendengaran?</label>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <button type="button" class="btn btn-outline-secondary w-100 py-2"
+                                                    data-value="N" data-target="pendengaran">N</button>
+                                            </div>
+                                            <div class="col-6">
+                                                <button type="button" class="btn btn-outline-secondary w-100 py-2"
+                                                    data-value="Y" data-target="pendengaran">Y</button>
+                                            </div>
+                                            <input type="hidden" id="pendengaran" name="pendengaran" value="" required>
+                                        </div>
+                                    </div>
 
-<!-- Kursi Roda -->
-<div class="mb-4">
-    <label class="form-label">Kursi roda?</label>
-    <div class="row">
-        <div class="col-6">
-            <button type="button" class="btn btn-outline-secondary w-100 py-2" data-value="N" data-target="KursiRoda">N</button>
-        </div>
-        <div class="col-6">
-            <button type="button" class="btn btn-outline-secondary w-100 py-2" data-value="Y" data-target="KursiRoda">Y</button>
-        </div>
-        <input type="hidden" id="KursiRoda" name="KursiRoda" value="" required>
-    </div>
-</div>
+                                    <!-- Kursi Roda -->
+                                    <div class="mb-4">
+                                        <label class="form-label">Kursi roda?</label>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <button type="button" class="btn btn-outline-secondary w-100 py-2"
+                                                    data-value="N" data-target="kursi_roda">N</button>
+                                            </div>
+                                            <div class="col-6">
+                                                <button type="button" class="btn btn-outline-secondary w-100 py-2"
+                                                    data-value="Y" data-target="kursi_roda">Y</button>
+                                            </div>
+                                            <input type="hidden" id="kursi_roda" name="kursi_roda" value="" required>
+                                        </div>
+                                    </div>
 
-<!-- Tongkat (Kruk) -->
-<div class="mb-4">
-    <label class="form-label">Tongkat (kruk)?</label>
-    <div class="row">
-        <div class="col-6">
-            <button type="button" class="btn btn-outline-secondary w-100 py-2" data-value="N" data-target="Tongkat">N</button>
-        </div>
-        <div class="col-6">
-            <button type="button" class="btn btn-outline-secondary w-100 py-2" data-value="Y" data-target="Tongkat">Y</button>
-        </div>
-        <input type="hidden" id="Tongkat" name="Tongkat" value="" required>
-    </div>
-</div>
+                                    <!-- Tongkat (Kruk) -->
+                                    <div class="mb-4">
+                                        <label class="form-label">Tongkat (kruk)?</label>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <button type="button" class="btn btn-outline-secondary w-100 py-2"
+                                                    data-value="N" data-target="tongkat">N</button>
+                                            </div>
+                                            <div class="col-6">
+                                                <button type="button" class="btn btn-outline-secondary w-100 py-2"
+                                                    data-value="Y" data-target="tongkat">Y</button>
+                                            </div>
+                                            <input type="hidden" id="tongkat" name="tongkat" value="" required>
+                                        </div>
+                                    </div>
 
-<!-- Kaki/Tangan (Mata Protese) -->
-<div class="mb-4">
-    <label class="form-label">Kaki/Tangan (Mata Protese)?</label>
-    <div class="row">
-        <div class="col-6">
-            <button type="button" class="btn btn-outline-secondary w-100 py-2" data-value="N" data-target="Prostese">N</button>
-        </div>
-        <div class="col-6">
-            <button type="button" class="btn btn-outline-secondary w-100 py-2" data-value="Y" data-target="Prostese">Y</button>
-        </div>
-        <input type="hidden" id="Prostese" name="Prostese" value="" required>
-    </div>
-</div>
+                                    <!-- Kaki/Tangan (Mata Protese) -->
+                                    <div class="mb-4">
+                                        <label class="form-label">Kaki/Tangan (Mata Protese)?</label>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <button type="button" class="btn btn-outline-secondary w-100 py-2"
+                                                    data-value="N" data-target="prostese">N</button>
+                                            </div>
+                                            <div class="col-6">
+                                                <button type="button" class="btn btn-outline-secondary w-100 py-2"
+                                                    data-value="Y" data-target="prostese">Y</button>
+                                            </div>
+                                            <input type="hidden" id="prostese" name="prostese" value="" required>
+                                        </div>
+                                    </div>
 
-<!-- Dirujuk ke Fasyankes -->
-<div class="mb-4">
-    <label class="form-label">Apakah siswa dirujuk ke Fasyankes?</label>
-    <div class="row">
-        <div class="col-6">
-            <button type="button" class="btn btn-outline-secondary w-100 py-2" data-value="N" data-target="DirujukFasyankes">N</button>
-        </div>
-        <div class="col-6">
-            <button type="button" class="btn btn-outline-secondary w-100 py-2" data-value="Y" data-target="DirujukFasyankes">Y</button>
-        </div>
-        <input type="hidden" id="DirujukFasyankes" name="DirujukFasyankes" value="" required>
-    </div>
-</div>
-
+                                    <!-- Dirujuk ke Fasyankes -->
+                                    <div class="mb-4">
+                                        <label class="form-label">Apakah siswa dirujuk ke Fasyankes?</label>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <button type="button" class="btn btn-outline-secondary w-100 py-2"
+                                                    data-value="N" data-target="dirujuk_fasyankes">N</button>
+                                            </div>
+                                            <div class="col-6">
+                                                <button type="button" class="btn btn-outline-secondary w-100 py-2"
+                                                    data-value="Y" data-target="dirujuk_fasyankes">Y</button>
+                                            </div>
+                                            <input type="hidden" id="dirujuk_fasyankes" name="dirujuk_fasyankes" value="" required>
+                                        </div>
+                                    </div>
 
                                     <!-- Jika Iya Tuliskan Keterangan Rujukan Untuk Fasyankes -->
                                     <div class="mb-4">
-                                        <label for="RujukanGizi" class="form-label"> Jika Iya Tuliskan Keterangan Rujukan
-                                            Untuk Fasyankes
-                                            <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="RujukanGizi" required>
+                                        <label for="rujukan_gizi" class="form-label">Jika Iya Tuliskan Keterangan Rujukan Untuk Fasyankes</label>
+                                        <input type="text" class="form-control" id="rujukan_gizi" name="rujukan_gizi">
                                     </div>
 
-
+                                    <!-- Tombol Submit -->
+                                    <div class="mb-4">
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
                     </div>
 
-
                     <script>
-                        // Script untuk toggle pilihan Y/N
-                        document.querySelectorAll('.btn[data-value]').forEach(button => {
-                            button.addEventListener('click', function() {
-                                // Dapatkan tombol dalam satu baris yang sama
-                                const row = this.closest('.row');
-                                const buttons = row.querySelectorAll('.btn[data-value]');
-                                const targetId = this.getAttribute('data-target');
-                                const hiddenInput = document.getElementById(targetId);
+                        document.addEventListener('DOMContentLoaded', function() {
+                            // Select all toggle buttons
+                            const toggleButtons = document.querySelectorAll('.btn[data-value]');
 
-                                // Reset semua tombol dalam baris
-                                buttons.forEach(btn => {
-                                    btn.classList.remove('btn-primary');
-                                    btn.classList.add('btn-outline-secondary');
+                            // Add click event to each button
+                            toggleButtons.forEach(button => {
+                                button.addEventListener('click', function() {
+                                    // Get the parent row
+                                    const row = this.closest('.row');
+
+                                    // Get all buttons in this row group
+                                    const buttons = row.querySelectorAll('.btn[data-value]');
+
+                                    // Get the target input field
+                                    const targetId = this.getAttribute('data-target');
+                                    const hiddenInput = document.getElementById(targetId);
+
+                                    // Reset all buttons in this group
+                                    buttons.forEach(btn => {
+                                        btn.classList.remove('btn-primary');
+                                        btn.classList.add('btn-outline-secondary');
+                                    });
+
+                                    // Set active state for clicked button
+                                    this.classList.remove('btn-outline-secondary');
+                                    this.classList.add('btn-primary');
+
+                                    // Update the hidden input value
+                                    hiddenInput.value = this.getAttribute('data-value');
+
+                                    // Optional: Validate the field
+                                    if (hiddenInput.value) {
+                                        hiddenInput.setCustomValidity('');
+                                    } else {
+                                        hiddenInput.setCustomValidity('Please select an option');
+                                    }
                                 });
-
-                                // Set tombol yang diklik
-                                this.classList.remove('btn-outline-secondary');
-                                this.classList.add('btn-primary');
-
-                                // Update nilai input tersembunyi
-                                hiddenInput.value = this.getAttribute('data-value');
                             });
                         });
                     </script>
@@ -350,8 +401,6 @@
                 <div class="card-footer">copyright 2k25</div>
             </div>
         </div>
-
     </body>
-
     </html>
 @endsection
